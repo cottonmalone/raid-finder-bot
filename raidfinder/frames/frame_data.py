@@ -50,7 +50,6 @@ def get_ivs_for_frame(rng, n_best_ivs):
 
 
 def get_ability(rng, n_best_ivs):
-
     if n_best_ivs > 3:
         return rng.next_int(3, 3) + 1
 
@@ -58,7 +57,6 @@ def get_ability(rng, n_best_ivs):
 
 
 def get_frame_data(rng: XoroShiro, n_best_ivs):
-
     # ignore characteristics
     _ = rng.next_int(FRAME_MAX_INT, FRAME_MAX_INT)
 
@@ -72,3 +70,28 @@ def get_frame_data(rng: XoroShiro, n_best_ivs):
         ivs=get_ivs_for_frame(rng, n_best_ivs),
         ability=get_ability(rng, n_best_ivs),
     )
+
+
+def get_shiny_frames(seed, max_count, n_best_ivs):
+    frames = []
+
+    rng = XoroShiro(seed)
+
+    for i in range(1, max_count + 1):
+        frame = get_frame_data(rng.clone(), n_best_ivs)
+
+        if frame.type != ShinyType.NONE:
+            frames.append((i, frame))
+            print((i, frame))
+
+        rng.next_frame()
+
+    return frames
+
+
+def get_data_for_n_frame(seed, n_frame, n_best_ivs):
+    rng = XoroShiro(seed)
+
+    [rng.next_frame() for i in range(n_frame - 1)]
+
+    return get_frame_data(rng.clone(), n_best_ivs)

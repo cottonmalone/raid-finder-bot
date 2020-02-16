@@ -1,5 +1,4 @@
 import pytest
-from raidfinder.frames.xoro_shiro import XoroShiro
 from raidfinder.frames.frame_data import *
 
 
@@ -50,3 +49,20 @@ from raidfinder.frames.frame_data import *
 )
 def test_frame_data_get_frame_data(seed, n_best_ivs, expected_data):
     assert get_frame_data(XoroShiro(int(seed, 16)), n_best_ivs) == expected_data
+
+
+def test_frame_data_get_shiny_frames():
+    assert get_shiny_frames(int("2e6327d13bb66b32", 16), 10000, 4) == [
+        (1973, FrameData(type=ShinyType.STAR, ivs=[29, 31, 31, 31, 31, 7], ability=3)),
+        (2474, FrameData(type=ShinyType.STAR, ivs=[31, 15, 31, 31, 31, 6], ability=1)),
+        (
+            6416,
+            FrameData(type=ShinyType.SQUARE, ivs=[31, 9, 31, 31, 31, 19], ability=2),
+        ),
+    ]
+
+
+def test_frame_data_get_data_for_n_frame():
+    assert get_data_for_n_frame(int("2e6327d13bb66b32", 16), 1973, 4) == FrameData(
+        type=ShinyType.STAR, ivs=[29, 31, 31, 31, 31, 7], ability=3
+    )

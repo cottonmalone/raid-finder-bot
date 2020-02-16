@@ -34,5 +34,8 @@ class XoroShiro:
 
         return result
 
+    def next_frame(self):
+        self.s0 = (self.s0 + self.s1) & MAX_INT
+
     def clone(self):
         return XoroShiro(self.s0)
