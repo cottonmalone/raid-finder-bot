@@ -51,6 +51,6 @@ active, and if not activate it.
 To run the bot, type:
 
 ```bash
-python -m raid-finder
+python -m raidfinder
 ```
 
