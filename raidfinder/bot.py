@@ -1,5 +1,6 @@
 import discord.ext.commands
-from .embed import create_embed
+from .bot_cog import RaidFinderBotCog
+from .frames.cog import FrameDataCog
 
 
 class RaidFinderBot(discord.ext.commands.Bot):
@@ -13,11 +14,7 @@ class RaidFinderBot(discord.ext.commands.Bot):
 def create_bot():
     bot = RaidFinderBot()
 
-    @bot.command()
-    async def logout(ctx):
-        # create bot card
-        await ctx.send(embed=create_embed(description="Logging out..."))
-        # logout
-        await bot.logout()
+    bot.add_cog(RaidFinderBotCog(bot))
+    bot.add_cog(FrameDataCog())
 
     return bot
